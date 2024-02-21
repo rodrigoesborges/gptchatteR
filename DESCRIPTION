@@ -1,6 +1,6 @@
 Package: gptchatteR
 Type: Package
-Version: 0.1.0
+Version: 0.1.1
 Author: Isin Altinkaya, ChatGPT
 Maintainer: Isin Altinkaya <isinaltinkaya@sund.ku.dk>
 Title: R wrapper for the OpenAI GPT chatter
@@ -9,4 +9,4 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Depends: openai (>= 0.2.0)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3

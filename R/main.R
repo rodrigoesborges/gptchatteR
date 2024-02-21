@@ -88,11 +88,11 @@ chatter.auth <- function(openai_secret_key = NULL) {
 
 #' Create an OpenAI chatterbot
 #'
-#' @param model The OpenAI model to use (default is \code{text-davinci-003})
+#' @param model The OpenAI model to use (default is \code{gpt-3.5-turbo-instruct})
 #' @param temperature Float between 0 and 1, representing the degree of
 #' randomness (default is \code{0.5})
 #' @param max_tokens Maximum number of tokens to generate
-#' (default is \code{100})
+#' (default is \code{2000})
 #' @param ... Other arguments passed to \code{\link[openai]{create_completion}}
 #'
 #' @return A \code{chatter} object containing the OpenAI secret key and the
@@ -108,9 +108,9 @@ chatter.auth <- function(openai_secret_key = NULL) {
 #' \code{\link{chatter.chat}},\code{\link{chatter.plot}}
 #'
 #' @importFrom openai create_completion
-chatter.create <- function(model = "text-davinci-003",
+chatter.create <- function(model = "gpt-3.5-turbo-instruct",
                            temperature = 0.5,
-                           max_tokens = 100,
+                           max_tokens = 2000,
                            ...) {
   if (Sys.getenv("OPENAI_API_KEY") == "" || is.na(Sys.getenv("OPENAI_API_KEY"))) {
     stop(paste0(
@@ -188,6 +188,29 @@ chatter.create <- function(model = "text-davinci-003",
     }
   }
 
+  #' OpenAI chatterbot chat with create_chat_completion
+  #'
+  #' @param model The OpenAI model to use (default is \code{gpt-3.5-turbo-instruct})
+  #' @param temperature Float between 0 and 1, representing the degree of
+  #' randomness (default is \code{0.5})
+  #' @param max_tokens Maximum number of tokens to generate
+  #' (default is \code{2000})
+  #' @param ... Other arguments passed to \code{\link[openai]{create_completion}}
+  #'
+  #' @return A \code{chatter} object containing the OpenAI secret key and the
+  #' provided parameters
+  #'
+  #' @examples
+  #'
+  #' chatter.auth(openai_secret_key = "MY_SECRET_KEY")
+  #'
+  #' @export chatter.rechat
+  #'
+  #' @seealso \code{\link{chatter.auth}, \link{chatter.feed}},
+  #' \code{\link{chatter.chat}},\code{\link{chatter.rechat}},
+  #' \code{\link{chatter.plot}}
+  #'
+  #' @importFrom openai create_chat_completion
   chatter.rechat <<- function(input, echo = FALSE, return_response = FALSE, feed = FALSE, ...) {
     # if we should feed and chat at the same time
     if (feed) {

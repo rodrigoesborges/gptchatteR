@@ -5,24 +5,27 @@
 \title{Create an OpenAI chatterbot}
 \usage{
 chatter.create(
-  model = "text-davinci-003",
+  model = "gpt-3.5-turbo-instruct",
   temperature = 0.5,
-  max_tokens = 100,
+  max_tokens = 2000,
   ...
 )
 }
 \arguments{
-\item{model}{The OpenAI model to use (default is \code{text-davinci-003})}
+\item{model}{The OpenAI model to use (default is \code{gpt-3.5-turbo-instruct})}
 
 \item{temperature}{Float between 0 and 1, representing the degree of
 randomness (default is \code{0.5})}
 
 \item{max_tokens}{Maximum number of tokens to generate
-(default is \code{100})}
+(default is \code{2000})}
 
 \item{...}{Other arguments passed to \code{\link[openai]{create_completion}}}
 }
 \value{
+A \code{chatter} object containing the OpenAI secret key and the
+provided parameters
+
 A \code{chatter} object containing the OpenAI secret key and the
 provided parameters
 }
@@ -33,8 +36,15 @@ Create an OpenAI chatterbot
 
 chatter.auth(openai_secret_key = "MY_SECRET_KEY")
 
+
+chatter.auth(openai_secret_key = "MY_SECRET_KEY")
+
 }
 \seealso{
 \code{\link{chatter.auth}, \link{chatter.feed}},
 \code{\link{chatter.chat}},\code{\link{chatter.plot}}
+
+\code{\link{chatter.auth}, \link{chatter.feed}},
+\code{\link{chatter.chat}},\code{\link{chatter.rechat}},
+\code{\link{chatter.plot}}
 }
