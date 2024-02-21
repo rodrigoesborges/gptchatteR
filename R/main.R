@@ -159,7 +159,7 @@ chatter.create <- function(model = "text-davinci-003",
       chatter.feed(input)
       response <- openai::create_completion(
         prompt = chatter$input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo
@@ -175,7 +175,7 @@ chatter.create <- function(model = "text-davinci-003",
       new_input <- paste0(chatter$input, "\n", input, "\n")
       response <- openai::create_completion(
         prompt = new_input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo, ...
@@ -188,6 +188,41 @@ chatter.create <- function(model = "text-davinci-003",
     }
   }
 
+  chatter.rechat <<- function(input, echo = FALSE, return_response = FALSE, feed = FALSE, ...) {
+    # if we should feed and chat at the same time
+    if (feed) {
+      chatter.feed(input)
+      response <- openai::create_chat_completion(
+        prompt = chatter$input,
+        model = chatter$model,
+        temperature = chatter$temperature,
+        max_tokens = chatter$max_tokens,
+        echo = echo
+      )
+      if (return_response) {
+        return(response)
+      } else {
+        cat(response$choices$text)
+      }
+      
+      # else do not remember my current input
+    } else {
+      new_input <- paste0(chatter$input, "\n", input, "\n")
+      response <- openai::create_completion(
+        prompt = new_input,
+        model = chatter$model,
+        temperature = chatter$temperature,
+        max_tokens = chatter$max_tokens,
+        echo = echo, ...
+      )
+      if (return_response) {
+        return(response)
+      } else {
+        cat(response$choices$text)
+      }
+    }
+  }
+  
 
   chatter.plot <<- function(input, echo = FALSE, feed = FALSE, run = FALSE, ...) {
     input <- paste0("Use R. Do not include '<code>' in the reply. Only reply with code.\n", input, "\n")
@@ -196,7 +231,7 @@ chatter.create <- function(model = "text-davinci-003",
       chatter.feed(input)
       response <- openai::create_completion(
         prompt = chatter$input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo, ...
@@ -213,7 +248,7 @@ chatter.create <- function(model = "text-davinci-003",
       new_input <- paste0(chatter$input, "\n", input, "\n")
       response <- openai::create_completion(
         prompt = new_input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo, ...
@@ -235,7 +270,7 @@ chatter.create <- function(model = "text-davinci-003",
 
       response <- openai::create_completion(
         prompt = chatter$input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo, ...
@@ -252,7 +287,7 @@ chatter.create <- function(model = "text-davinci-003",
       new_input <- paste0(chatter$input, "\n", input, "\n")
       response <- openai::create_completion(
         prompt = new_input,
-        engine_id = chatter$model,
+        model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
         echo = echo, ...
