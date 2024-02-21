@@ -194,7 +194,7 @@ chatter.create <- function(model = "gpt-3.5-turbo-instruct",
     if (feed) {
       chatter.feed(input)
       response <- openai::create_chat_completion(
-        messages = list("role" = "user", "content" = chatter$input),
+        messages = list(list("role" = "user", "content" = chatter$input)),
         model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens,
@@ -209,7 +209,7 @@ chatter.create <- function(model = "gpt-3.5-turbo-instruct",
     } else {
       new_input <- paste0(chatter$input, "\n", input, "\n")
       response <- openai::create_chat_completion(
-        messages = list("role" = "user", "content" = chatter$input),
+        messages = list(list("role" = "user", "content" = chatter$input)),
         model = chatter$model,
         temperature = chatter$temperature,
         max_tokens = chatter$max_tokens, ...
