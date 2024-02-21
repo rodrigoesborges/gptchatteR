@@ -2,10 +2,5 @@
 
 export(chatter.auth)
 export(chatter.create)
-export(chatter.rechat)
-importFrom(openai,OpenAI)
-importFrom(openai,chat)
-importFrom(openai,chatterbot)
 importFrom(openai,create_chat_completion)
 importFrom(openai,create_completion)
-importFrom(openai,with)

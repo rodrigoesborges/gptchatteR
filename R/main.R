@@ -108,6 +108,7 @@ chatter.auth <- function(openai_secret_key = NULL) {
 #' \code{\link{chatter.chat}},\code{\link{chatter.plot}}
 #'
 #' @importFrom openai create_completion
+#' @importFrom openai create_chat_completion
 chatter.create <- function(model = "gpt-3.5-turbo-instruct",
                            temperature = 0.5,
                            max_tokens = 2000,
@@ -188,29 +189,6 @@ chatter.create <- function(model = "gpt-3.5-turbo-instruct",
     }
   }
 
-  #' OpenAI chatterbot chat with create_chat_completion
-  #'
-  #' @param model The OpenAI model to use (default is \code{gpt-3.5-turbo-instruct})
-  #' @param temperature Float between 0 and 1, representing the degree of
-  #' randomness (default is \code{0.5})
-  #' @param max_tokens Maximum number of tokens to generate
-  #' (default is \code{2000})
-  #' @param ... Other arguments passed to \code{\link[openai]{create_completion}}
-  #'
-  #' @return A \code{chatter} object containing the OpenAI secret key and the
-  #' provided parameters
-  #'
-  #' @examples
-  #'
-  #' chatter.auth(openai_secret_key = "MY_SECRET_KEY")
-  #'
-  #' @export chatter.rechat
-  #'
-  #' @seealso \code{\link{chatter.auth}, \link{chatter.feed}},
-  #' \code{\link{chatter.chat}},\code{\link{chatter.rechat}},
-  #' \code{\link{chatter.plot}}
-  #'
-  #' @importFrom openai create_chat_completion
   chatter.rechat <<- function(input, echo = FALSE, return_response = FALSE, feed = FALSE, ...) {
     # if we should feed and chat at the same time
     if (feed) {
@@ -231,7 +209,7 @@ chatter.create <- function(model = "gpt-3.5-turbo-instruct",
       # else do not remember my current input
     } else {
       new_input <- paste0(chatter$input, "\n", input, "\n")
-      response <- openai::create_completion(
+      response <- openai::create_chat_completion(
         prompt = new_input,
         model = chatter$model,
         temperature = chatter$temperature,
@@ -245,7 +223,7 @@ chatter.create <- function(model = "gpt-3.5-turbo-instruct",
       }
     }
   }
-  
+
 
   chatter.plot <<- function(input, echo = FALSE, feed = FALSE, run = FALSE, ...) {
     input <- paste0("Use R. Do not include '<code>' in the reply. Only reply with code.\n", input, "\n")

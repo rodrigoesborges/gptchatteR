@@ -25,9 +25,6 @@ randomness (default is \code{0.5})}
 \value{
 A \code{chatter} object containing the OpenAI secret key and the
 provided parameters
-
-A \code{chatter} object containing the OpenAI secret key and the
-provided parameters
 }
 \description{
 Create an OpenAI chatterbot
@@ -36,15 +33,8 @@ Create an OpenAI chatterbot
 
 chatter.auth(openai_secret_key = "MY_SECRET_KEY")
 
-
-chatter.auth(openai_secret_key = "MY_SECRET_KEY")
-
 }
 \seealso{
 \code{\link{chatter.auth}, \link{chatter.feed}},
 \code{\link{chatter.chat}},\code{\link{chatter.plot}}
-
-\code{\link{chatter.auth}, \link{chatter.feed}},
-\code{\link{chatter.chat}},\code{\link{chatter.rechat}},
-\code{\link{chatter.plot}}
 }
